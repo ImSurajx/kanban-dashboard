@@ -284,4 +284,8 @@ main .board .task-container .btm .card .prf-contain .profile img {
 main .board .task-container .btm .card .prf-contain .ri-delete-bin-6-line {
   color: #000;
   font-size: var(--font-size-lg);
+}
+
+.active {
+  border: 2px dashed black;
 }/*# sourceMappingURL=style.css.map */
