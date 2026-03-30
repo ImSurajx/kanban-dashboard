@@ -257,6 +257,9 @@ main {
                 border-radius: 25px;
                 margin-top: var(--spacing-md);
                 padding: var(--spacing-md);
+                display: flex;
+                flex-direction: column;
+                gap: 0.8rem;
 
                 .card {
                     border: 1px solid var(--color-border);
@@ -326,5 +329,6 @@ main {
                 }
             }
         }
+
     }
 }
