@@ -7,6 +7,22 @@ const containers = document.querySelectorAll('.btm');
 let movingCard = null;
 let originalContainer = null;
 
+// this function update the count of number of cards & also change the style of card according to container
+function syncContainerCards(container) {
+    console.log(container.id);
+    let childrens = container.children;
+    for (let i = 0; i < childrens.length; i++) {
+        // make all children class empty.
+        childrens[i].children[0].className = '';
+        // set card class according to the container.
+        console.log(childrens[i].children[0].className);
+        let dynamicClass =  container.id === 'todo-list' ? 'todo-ele' :
+                            container.id === 'in-progress-list' ? 'inp-ele' : 'comp-ele';
+        childrens[i].children[0].classList.add(`tag`, dynamicClass);
+    }
+    return cards.length;
+}
+
 // here we put values when use start draging a card.
 cards.forEach(card => {
     card.addEventListener("dragstart", (e) => {
@@ -37,8 +53,10 @@ containers.forEach(container => {
         // move our card into current target element.
         else {
             e.currentTarget.appendChild(movingCard);
+            syncContainerCards(e.currentTarget);
             movingCard = null;
             container.classList.toggle('active');
+
         }
     })
 })
