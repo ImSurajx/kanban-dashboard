@@ -14,20 +14,17 @@ cards.forEach(card => {
     })
 })
 
-// we will see in future
-// container.addEventListener("dragenter", () => {
-//     container.classList.add('active');
-//     console.log(container);
-//     console.log("element enter");    
-// })
 
-// container.addEventListener("dragleave", () => {
-//     container.classList.remove('active');
-//     console.log("element remove");
-// })
 containers.forEach(container => {
     container.addEventListener("dragover", (e) => {
         e.preventDefault();
+    })
+    container.addEventListener("dragenter", () => {
+        container.classList.toggle('active');
+    })
+
+    container.addEventListener("dragleave", () => {
+        container.classList.toggle('active');
     })
     container.addEventListener('drop', (e) => {
         e.preventDefault();
@@ -35,6 +32,7 @@ containers.forEach(container => {
         else {
             e.currentTarget.appendChild(movingCard);
             movingCard = null;
+            container.classList.toggle('active');
             // if (e.currentTarget.id === 'todo-list') {
             //     e.currentTarget.appendChild(movingCard);
             // }

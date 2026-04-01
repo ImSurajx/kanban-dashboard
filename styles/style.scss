@@ -328,11 +328,11 @@ main {
 
                 }
             }
+
+            // class which manage by js
+            .active {
+                border: 2px dashed black;
+            }
         }
     }
-}
-
-// extra classes
-.active{
-    border: 2px dashed black;
 }
