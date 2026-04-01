@@ -7,6 +7,7 @@ const containers = document.querySelectorAll('.btm');
 let movingCard = null;
 let originalContainer = null;
 
+// here we put values when use start draging a card.
 cards.forEach(card => {
     card.addEventListener("dragstart", (e) => {
         movingCard = card;
@@ -14,38 +15,31 @@ cards.forEach(card => {
     })
 })
 
-
+// drag effect is manage by here
 containers.forEach(container => {
+    // enable draging of element in browser.
     container.addEventListener("dragover", (e) => {
         e.preventDefault();
     })
+    // when card enter any container area it will be highlighted.
     container.addEventListener("dragenter", () => {
         container.classList.toggle('active');
     })
-
+    // when card leave the present card area it will be removed.
     container.addEventListener("dragleave", () => {
         container.classList.toggle('active');
     })
+    // this lister make card dragble from one container to another.
     container.addEventListener('drop', (e) => {
         e.preventDefault();
+        // checking if our current container has the same id as the initial card contianer then return the function & don't change anything¸
         if (originalContainer.id === e.currentTarget.id) return;
+        // move our card into current target element.
         else {
             e.currentTarget.appendChild(movingCard);
             movingCard = null;
             container.classList.toggle('active');
-            // if (e.currentTarget.id === 'todo-list') {
-            //     e.currentTarget.appendChild(movingCard);
-            // }
-            // else if (e.currentTarget.id === 'in-progress-list') {
-            //     e.currentTarget.appendChild(movingCard);
-            // } else if (e.currentTarget.id === 'completed-list') {
-            //     e.currentTarget.appendChild(movingCard);
-            // }
         }
-        // console.log(movingCard);
-        // console.log(originalContainer.id);
-        // console.log(e.currentTarget);
-        // console.log(e);
     })
 })
 
