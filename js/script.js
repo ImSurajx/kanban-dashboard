@@ -8,19 +8,29 @@ let movingCard = null;
 let originalContainer = null;
 
 // this function update the count of number of cards & also change the style of card according to container
-function syncContainerCards(container) {
-    console.log(container.id);
+function syncContainerStyle(container, parentOfContainer, parentOfOriginalContainer, originalContainer) {
+
     let childrens = container.children;
     for (let i = 0; i < childrens.length; i++) {
         // make all children class empty.
         childrens[i].children[0].className = '';
         // set card class according to the container.
-        console.log(childrens[i].children[0].className);
-        let dynamicClass =  container.id === 'todo-list' ? 'todo-ele' :
-                            container.id === 'in-progress-list' ? 'inp-ele' : 'comp-ele';
+        // console.log(childrens[i].children[0].className);
+        let dynamicClass = container.id === 'todo-list' ? 'todo-ele' :
+            container.id === 'in-progress-list' ? 'inp-ele' : 'comp-ele';
         childrens[i].children[0].classList.add(`tag`, dynamicClass);
     }
-    return cards.length;
+    // count total number of children in destination container
+    let childCountDestination = childrens.length;
+    // extract all children from the original card
+    let oChildrens = originalContainer.children;
+    // total number of children inside original container
+    let childCountOriginal = oChildrens.length || 0;
+    // update total number of cards container by destination container
+    parentOfContainer.children[0].children[0].children[1].innerText = `${childCountDestination}   Total`;
+    // console.log(childCountOriginal);
+    parentOfOriginalContainer.children[0].children[0].children[1].innerText = `${childCountOriginal}   Total`;
+
 }
 
 // here we put values when use start draging a card.
@@ -53,7 +63,7 @@ containers.forEach(container => {
         // move our card into current target element.
         else {
             e.currentTarget.appendChild(movingCard);
-            syncContainerCards(e.currentTarget);
+            syncContainerStyle(e.currentTarget, e.currentTarget.parentElement, originalContainer.parentElement, originalContainer);
             movingCard = null;
             container.classList.toggle('active');
 
