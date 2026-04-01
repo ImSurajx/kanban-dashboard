@@ -66,7 +66,6 @@ containers.forEach(container => {
             syncContainerStyle(e.currentTarget, e.currentTarget.parentElement, originalContainer.parentElement, originalContainer);
             movingCard = null;
             container.classList.toggle('active');
-
         }
     })
 })

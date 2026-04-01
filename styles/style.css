@@ -87,6 +87,7 @@ main nav {
   position: sticky;
   top: 0;
   background: var(--color-surface);
+  z-index: 2;
 }
 main nav .logo h1 {
   font-weight: var(--font-weight-bold);
@@ -142,6 +143,7 @@ main .board {
   background: var(--color-surface);
   padding: var(--spacing-md);
   gap: 1rem;
+  position: relative;
 }
 main .board .task-container {
   border: 1px solid var(--color-border);
@@ -287,4 +289,52 @@ main .board .task-container .btm .card .prf-contain .ri-delete-bin-6-line {
 }
 main .board .task-container .active {
   border: 2px dashed black;
+}
+main .board .creat-card {
+  position: absolute;
+  z-index: 1;
+  background-color: #fff;
+  height: 100%;
+  width: 100%;
+  top: 0;
+  right: 0;
+  left: 0;
+  bottom: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+main .board .creat-card #card-form {
+  background: var(--color-bg);
+  border: 1px solid var(--color-border);
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  padding: 1rem;
+  border-radius: 0.5rem;
+}
+main .board .creat-card #card-form input {
+  height: 3rem;
+  width: 25rem;
+  border-radius: 10px;
+  outline: none;
+  border: none;
+  background: #fff;
+  border: 1px solid var(--color-border);
+  padding-left: 1rem;
+}
+main .board .creat-card #card-form button {
+  padding: var(--spacing-sm) var(--spacing-xl);
+  border-radius: 50px;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: var(--font-size-base);
+  background: var(--color-primary-dark);
+  cursor: pointer;
+  color: #fff;
+  border: none;
+  padding: 1rem;
+  margin-top: 1rem;
+  justify-content: center;
 }/*# sourceMappingURL=style.css.map */
