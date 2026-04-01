@@ -2,10 +2,17 @@
 const cards = document.querySelectorAll('.card');
 // select all the card container
 const containers = document.querySelectorAll('.btm');
+// select all add new task button.
+const addNewButtons = document.querySelectorAll('.add-new');
+// select create card container
+const createCard = document.querySelector('.creat-card');
+// select card form 
+const cardForm = document.querySelector('#card-form');
 
 // current moving element (global trak);
 let movingCard = null;
 let originalContainer = null;
+
 
 // this function update the count of number of cards & also change the style of card according to container
 function syncContainerStyle(container, parentOfContainer, parentOfOriginalContainer, originalContainer) {
@@ -69,5 +76,21 @@ containers.forEach(container => {
         }
     })
 })
+
+// on click of add new task button bring the create card page.
+addNewButtons.forEach(button => {
+    button.addEventListener('click', (e) => {
+        createCard.style.display = "flex";
+    })
+})
+
+// clicking outside of form remove create card page
+createCard.addEventListener('click', (e) => {
+    if (!cardForm.contains(e.target)) {
+        createCard.style.display = "none";
+    }
+})
+
+
 
 
