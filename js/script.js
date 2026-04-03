@@ -16,7 +16,7 @@ let movingCard = null;
 let originalContainer = null;
 
 // element inside which current card is creating..
-let cardContaienr = null;
+let cardContainer = null;
 
 // this function update the count of number of cards & also change the style of card according to container
 function syncContainerStyle(container, parentOfContainer, parentOfOriginalContainer, originalContainer) {
@@ -98,8 +98,25 @@ function makeCardForUi(tag, title, description, container) {
     card.appendChild(titleEl);
     card.appendChild(desc);
     card.appendChild(prfContain);
-    cardContaienr = null;
-    return card;
+    cardContainer = null;
+    renderCard(card, container);
+}
+
+// render card ui into a particular container.
+function renderCard(card, container) {
+    let todo = document.querySelector('#todo-list');
+    let inProgress = document.querySelector('#in-progress-list');
+    let completed = document.querySelector('#completed-list');
+    console.log(card, container);
+    if (container === 'add-new-todo') {
+        todo.appendChild(card);
+    }
+    else if (container === 'add-new-in-prog') {
+        inProgress.appendChild(card);
+    }
+    else if (container === 'add-new-comp') {
+        completed.appendChild(card);
+    }
 }
 
 // here we put values when use start draging a card.
@@ -142,7 +159,7 @@ containers.forEach(container => {
 // on click of add new task button bring the create card page.
 addNewButtons.forEach(button => {
     button.addEventListener('click', (e) => {
-        cardContaienr = button.id;
+        cardContainer = button.id;
         createCard.style.display = "flex";
     })
 })
@@ -162,7 +179,7 @@ cardForm.addEventListener('submit', (e) => {
     let title = e.target[0].value;
     let description = e.target[1].value;
     let tag = e.target[2].value;
-    console.log(makeCardForUi(title, description, tag, cardContaienr));
+    makeCardForUi(title, description, tag, cardContainer);
     cardForm.reset();
 })
 
