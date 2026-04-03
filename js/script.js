@@ -145,8 +145,17 @@ function updateCardCount(container) {
 // save data into localStorage
 function saveToLocal() {
     localStorage.setItem('allSavedCards', JSON.stringify(allCard));
-    console.log(allCard);
-    console.log(localStorage.getItem('allSavedCards'));
+}
+loadFromLocalStorage();
+
+// render data from localStorage.
+function loadFromLocalStorage() {
+    let stringData = localStorage.getItem('allSavedCards');
+    let data = JSON.parse(stringData);
+    data.forEach(card => {
+        const { title, description, tag, container } = card ?? {};
+        makeCardForUi(tag, title, description, container);
+    })
 }
 
 // here we put values when use start draging a card.
@@ -180,9 +189,16 @@ containers.forEach(container => {
         else {
             e.currentTarget.appendChild(movingCard);
             syncContainerStyle(e.currentTarget, e.currentTarget.parentElement, originalContainer.parentElement, originalContainer);
+            allCard.forEach(card => {
+                if (card.id == movingCard.id) {
+                    card.container = movingCard.parentElement.parentElement.children[0].children[1].children[0].id;
+                }
+            })
+            saveToLocal();
             movingCard = null;
             container.classList.toggle('active');
         }
+
     })
 })
 
