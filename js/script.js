@@ -9,6 +9,8 @@ const createCard = document.querySelector('.creat-card');
 // select card form 
 const cardForm = document.querySelector('#card-form');
 
+
+
 // current moving element (global trak);
 let movingCard = null;
 let originalContainer = null;
@@ -89,6 +91,13 @@ createCard.addEventListener('click', (e) => {
     if (!cardForm.contains(e.target)) {
         createCard.style.display = "none";
     }
+})
+
+
+// get value of input field..
+cardForm.addEventListener('submit', (e) => {
+    e.preventDefault(); // prevent form reset after submission
+    createCard.style.display = "none";
 })
 
 
