@@ -8,9 +8,10 @@ const addNewButtons = document.querySelectorAll('.add-new');
 const createCard = document.querySelector('.creat-card');
 // select card form 
 const cardForm = document.querySelector('#card-form');
-
-
-
+// unique id for each element
+let uniqueId = 0;
+// array which contain all card information
+let allCard = [];
 
 // current moving element (global trak);
 let movingCard = null;
@@ -50,6 +51,7 @@ function makeCardForUi(tag, title, description, container) {
     // main div
     const card = document.createElement("div");
     card.className = "card";
+    card.id = uniqueId++;
     card.setAttribute("draggable", "true");
 
     // tag
@@ -101,6 +103,15 @@ function makeCardForUi(tag, title, description, container) {
     card.appendChild(prfContain);
     cardContainer = null;
     renderCard(card, container);
+    let obj = {
+        id: card.id,
+        title: title,
+        description: description,
+        tag: tag,
+        container: container,
+    }
+    allCard.push(obj)
+    saveToLocal();
 }
 
 // render card ui into a particular container.
@@ -130,6 +141,14 @@ function updateCardCount(container) {
     let count = childrenArray.length;
     container.parentElement.children[0].children[0].children[1].innerText = `${count}   Total`;
 }
+
+// save data into localStorage
+function saveToLocal() {
+    localStorage.setItem('allSavedCards', JSON.stringify(allCard));
+    console.log(allCard);
+    console.log(localStorage.getItem('allSavedCards'));
+}
+
 // here we put values when use start draging a card.
 containers.forEach(container => {
     container.addEventListener("dragstart", (e) => {
@@ -195,10 +214,14 @@ cardForm.addEventListener('submit', (e) => {
 })
 
 // delete card on clicking delete icon..
-cards.forEach(card => {
-    card.addEventListener('click', (e) => {
+containers.forEach(container => {
+    container.addEventListener('click', (e) => {
+        let closestCard = e.target.closest('.card');
         if (e.target.classList.contains('ri-delete-bin-6-line')) {
-            card.remove();
+            closestCard.remove();
+            updateCardCount(container);
+            allCard = allCard.filter(item => item.id !== closestCard.id);
+            saveToLocal();
         }
     });
 })
