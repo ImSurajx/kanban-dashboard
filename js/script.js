@@ -11,6 +11,7 @@ const cardForm = document.querySelector('#card-form');
 
 
 
+
 // current moving element (global trak);
 let movingCard = null;
 let originalContainer = null;
@@ -193,6 +194,11 @@ cardForm.addEventListener('submit', (e) => {
     cardForm.reset();
 })
 
-
-
-
+// delete card on clicking delete icon..
+cards.forEach(card => {
+    card.addEventListener('click', (e) => {
+        if (e.target.classList.contains('ri-delete-bin-6-line')) {
+            card.remove();
+        }
+    });
+})
