@@ -15,6 +15,8 @@ const cardForm = document.querySelector('#card-form');
 let movingCard = null;
 let originalContainer = null;
 
+// element inside which current card is creating..
+let cardContaienr = null;
 
 // this function update the count of number of cards & also change the style of card according to container
 function syncContainerStyle(container, parentOfContainer, parentOfOriginalContainer, originalContainer) {
@@ -40,6 +42,64 @@ function syncContainerStyle(container, parentOfContainer, parentOfOriginalContai
     // console.log(childCountOriginal);
     parentOfOriginalContainer.children[0].children[0].children[1].innerText = `${childCountOriginal}   Total`;
 
+}
+
+// this function create card according to input field & add it into that particular container.
+function makeCardForUi(tag, title, description, container) {
+    // main div
+    const card = document.createElement("div");
+    card.className = "card";
+    card.setAttribute("draggable", "true");
+
+    // tag
+    let dynamicClass = container === 'add-new-todo' ? 'todo-ele' :
+        container === 'add-new-in-prog' ? 'inp-ele' : 'comp-ele';
+    const tagDiv = document.createElement("div");
+    tagDiv.className = `tag ${dynamicClass}`;
+    tagDiv.innerText = tag;
+
+    // title
+    const titleEl = document.createElement("h3");
+    titleEl.innerText = title;
+
+    // description
+    const desc = document.createElement("p");
+    desc.innerText = description;
+
+    // profile container
+    const prfContain = document.createElement("div");
+    prfContain.className = "prf-contain";
+
+    // profile div
+    const profile = document.createElement("div");
+    profile.className = "profile";
+
+    const img = document.createElement("img");
+    img.src = "https://avatars.githubusercontent.com/u/106401203?s=400&u=774668cafb31bf8c4b3df9755700de11cd093d5a&v=4";
+    img.alt = "";
+
+    profile.appendChild(img);
+
+    // delete button
+    const del = document.createElement("div");
+    del.className = "delete";
+
+    const icon = document.createElement("i");
+    icon.className = "ri-delete-bin-6-line";
+
+    del.appendChild(icon);
+
+    // append profile + delete
+    prfContain.appendChild(profile);
+    prfContain.appendChild(del);
+
+    // append all to card
+    card.appendChild(tagDiv);
+    card.appendChild(titleEl);
+    card.appendChild(desc);
+    card.appendChild(prfContain);
+    cardContaienr = null;
+    return card;
 }
 
 // here we put values when use start draging a card.
@@ -82,7 +142,7 @@ containers.forEach(container => {
 // on click of add new task button bring the create card page.
 addNewButtons.forEach(button => {
     button.addEventListener('click', (e) => {
-        console.log(button.id);
+        cardContaienr = button.id;
         createCard.style.display = "flex";
     })
 })
@@ -102,8 +162,10 @@ cardForm.addEventListener('submit', (e) => {
     let title = e.target[0].value;
     let description = e.target[1].value;
     let tag = e.target[2].value;
-    console.log(title, description, tag);
+    console.log(makeCardForUi(title, description, tag, cardContaienr));
+    cardForm.reset();
 })
+
 
 
 
