@@ -120,10 +120,10 @@ function renderCard(card, container) {
 }
 
 // here we put values when use start draging a card.
-cards.forEach(card => {
-    card.addEventListener("dragstart", (e) => {
-        movingCard = card;
-        originalContainer = e.target.parentElement;
+containers.forEach(container => {
+    container.addEventListener("dragstart", (e) => {
+        movingCard = e.target;
+        originalContainer = container;
     })
 })
 
@@ -176,9 +176,9 @@ createCard.addEventListener('click', (e) => {
 cardForm.addEventListener('submit', (e) => {
     e.preventDefault(); // prevent form reset after submission
     createCard.style.display = "none";
-    let title = e.target[0].value;
-    let description = e.target[1].value;
-    let tag = e.target[2].value;
+    let title = e.target[2].value;
+    let description = e.target[0].value;
+    let tag = e.target[1].value;
     makeCardForUi(title, description, tag, cardContainer);
     cardForm.reset();
 })
