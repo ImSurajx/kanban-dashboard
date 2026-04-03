@@ -82,6 +82,7 @@ containers.forEach(container => {
 // on click of add new task button bring the create card page.
 addNewButtons.forEach(button => {
     button.addEventListener('click', (e) => {
+        console.log(button.id);
         createCard.style.display = "flex";
     })
 })
@@ -98,8 +99,11 @@ createCard.addEventListener('click', (e) => {
 cardForm.addEventListener('submit', (e) => {
     e.preventDefault(); // prevent form reset after submission
     createCard.style.display = "none";
+    let title = e.target[0].value;
+    let description = e.target[1].value;
+    let tag = e.target[2].value;
+    console.log(title, description, tag);
 })
-
 
 
 
