@@ -107,18 +107,28 @@ function renderCard(card, container) {
     let todo = document.querySelector('#todo-list');
     let inProgress = document.querySelector('#in-progress-list');
     let completed = document.querySelector('#completed-list');
-    console.log(card, container);
+    let currentContianer = null;
     if (container === 'add-new-todo') {
         todo.appendChild(card);
+        currentContianer = todo;
     }
     else if (container === 'add-new-in-prog') {
         inProgress.appendChild(card);
+        currentContianer = inProgress;
     }
     else if (container === 'add-new-comp') {
         completed.appendChild(card);
+        currentContianer = completed;
     }
+    updateCardCount(currentContianer);
 }
 
+// count number of cards for each container
+function updateCardCount(container) {
+    const childrenArray = Array.from(container.children);
+    let count = childrenArray.length;
+    container.parentElement.children[0].children[0].children[1].innerText = `${count}   Total`;
+}
 // here we put values when use start draging a card.
 containers.forEach(container => {
     container.addEventListener("dragstart", (e) => {
